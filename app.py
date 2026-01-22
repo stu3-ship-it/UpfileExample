@@ -9,10 +9,10 @@ from googleapiclient.http import MediaFileUpload
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
 
 def authenticate_gdrive():
-    creds = None
+    #creds = dict(st.secrets["gcp_service_account"])
     # token.json 儲存使用者的登入資訊
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    #if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file(dict(st.secrets["gcp_service_account"]), SCOPES)
     
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
