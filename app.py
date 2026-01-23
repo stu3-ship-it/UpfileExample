@@ -35,6 +35,7 @@ def upload_to_gdrive(uploaded_file, folder_id):
             body=file_metadata,
             media_body=media,
             fields='id'
+            supportsAllDrives=True
         ).execute()
         
         return True
