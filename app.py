@@ -25,13 +25,11 @@ def upload_to_gdrive(uploaded_file, folder_id):
         }
         
         # 轉換 Streamlit 的 UploadedFile 為 Google 可接受的格式
-        #media = MediaIoBaseUpload(
-        #    io.BytesIO(uploaded_file.getvalue()), 
-        #    mimetype=uploaded_file.type, 
-        #    resumable=True
-        #)
-        media = MediaFileUpload(source, mimetype='application/vnd.google-apps.file', 
-             chunksize=1024*1024, resumable=True)
+        media = MediaIoBaseUpload(
+            io.BytesIO(uploaded_file.getvalue()), 
+            mimetype=uploaded_file.type, 
+            resumable=True
+        )
         
         file = service.files().create(
             body=file_metadata,
