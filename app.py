@@ -25,11 +25,13 @@ def upload_to_gdrive(uploaded_file, folder_id):
         }
         
         # 轉換 Streamlit 的 UploadedFile 為 Google 可接受的格式
-        media = MediaIoBaseUpload(
-            io.BytesIO(uploaded_file.getvalue()), 
-            mimetype=uploaded_file.type, 
-            resumable=True
-        )
+        #media = MediaIoBaseUpload(
+        #    io.BytesIO(uploaded_file.getvalue()), 
+        #    mimetype=uploaded_file.type, 
+        #    resumable=True
+        #)
+        media = MediaFileUpload(source, mimetype='application/vnd.google-apps.file', 
+             chunksize=1024*1024, resumable=True)
         
         file = service.files().create(
             body=file_metadata,
@@ -41,12 +43,6 @@ def upload_to_gdrive(uploaded_file, folder_id):
     except Exception as e:
         st.error(f"錯誤詳情: {e}")
         return False
-
-    try:
-        about = drive_service.about().get(fields="storageQuota").execute()
-        print(about)
-    except Exception as e:
-        print(f"ストレージ情報の取得中にエラーが発生しました: {e}")
 
 # UI 介面
 uploaded_file = st.file_uploader("選擇要上傳的檔案", type=None)
