@@ -42,6 +42,12 @@ def upload_to_gdrive(uploaded_file, folder_id):
         st.error(f"錯誤詳情: {e}")
         return False
 
+    try:
+        about = drive_service.about().get(fields="storageQuota").execute()
+        print(about)
+    except Exception as e:
+        print(f"ストレージ情報の取得中にエラーが発生しました: {e}")
+
 # UI 介面
 uploaded_file = st.file_uploader("選擇要上傳的檔案", type=None)
 
