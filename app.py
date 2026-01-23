@@ -34,7 +34,7 @@ def upload_to_gdrive(uploaded_file, folder_id):
         file = service.files().create(
             body=file_metadata,
             media_body=media,
-            fields='id'
+            fields='id',
             supportsAllDrives=True
         ).execute()
         
